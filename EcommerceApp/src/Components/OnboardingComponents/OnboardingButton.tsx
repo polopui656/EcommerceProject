@@ -63,7 +63,8 @@ const OnboardingButton = ({ flatListIndex, flatListRef, itemLength, x}: onboardi
             if(flatListIndex.value === itemLength - 1){
                 flatListRef.current?.scrollToIndex({index: flatListIndex.value + 1});
             } else {
-                alert("Click here to Start shopping online!!")
+                //alert("Click here to Start shopping online!!")
+                navigation.replace("TabsStack", {"screen": "Home"})
             }
         }}
         >

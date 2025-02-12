@@ -2,10 +2,10 @@ import {BottomTabScreenProps, createBottomTabNavigator} from '@react-navigation/
 import { CompositeScreenProps } from '@react-navigation/native';
 import { RootStackScreenProps } from './RootNavigator';
 import { Entypo, Ionicons, AntDesign } from '@expo/vector-icons';
-import HomeScreen from './HomeScreen';
-import CartScreen from './CartScreen';
-import PaymentScreen from './PaymentScreen';
-import ProfileScreen from './ProfileScreen';
+import HomeScreen from '../Screens/HomeScreen'
+import CartScreen from '../Screens/CartScreen';
+import PaymentScreen from '../Screens/PaymentScreen';
+import ProfileScreen from '../Screens/ProfileScreen';
 
 export type TabsStackParams = {
     Home: undefined;

@@ -33,7 +33,7 @@ const OnboardingItems = ({ item, index, x }: OnboardingItemObj) => {
         index * SCREEN_WIDTH,
         (index + 1) * SCREEN_WIDTH,
       ],
-      [45, 0, -100],
+      [450, -400, 100],
       Extrapolation.CLAMP
     );
     return {
@@ -46,7 +46,7 @@ const OnboardingItems = ({ item, index, x }: OnboardingItemObj) => {
         flex: 1,
         justifyContent: "space-around",
         alignItems: "center",
-        marginBottom: 20,
+        marginBottom: 0,
         width: SCREEN_WIDTH,
       }}
     >

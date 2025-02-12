@@ -63,7 +63,7 @@ const onViewableItemsChanged = ({
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          marginHorizontal: 30,
+          marginHorizontal: 20,
           paddingVertical: 30,
         }}
       >
