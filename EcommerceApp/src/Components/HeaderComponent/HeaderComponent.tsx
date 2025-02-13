@@ -44,7 +44,7 @@ export const HeadersComponent = ({ gotoPrevious, search, cartLength, gotoCartScr
           />
         </Pressable>
         <Pressable onPress={gotoCartScreen}>
-            <View style={{styles.cartNum}}>
+            <View>
                 <Text style={{color: "pink"}}>
                     {cartLength}
                 </Text>
@@ -54,3 +54,4 @@ export const HeadersComponent = ({ gotoPrevious, search, cartLength, gotoCartScr
       </View>
     )
 }
+
