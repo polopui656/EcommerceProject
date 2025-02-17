@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
     activeIndicator: {
         backgroundColor: "green"
     }
-})
+}) 
