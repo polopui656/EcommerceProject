@@ -1,4 +1,5 @@
-export interface ProductParam {
+
+export interface ProductParams {
     name: string;
     images: [string];
     price: number;
@@ -8,4 +9,5 @@ export interface ProductParam {
     inStock: boolean;
     isFeatured: boolean;
     category: string; 
+    createAt: Date;
 }

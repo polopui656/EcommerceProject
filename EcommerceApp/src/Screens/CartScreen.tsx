@@ -6,7 +6,7 @@ type Props = {}
 
 const CartScreen = (props: Props) => {
   return (
-    <SafeAreaView style={{paddingTop: Platform.OS === 'android' ? 40:0, flex: 1, backgroundColor: "black"}}>
+    <SafeAreaView style={{paddingTop: Platform.OS === 'android' ? 40:0, flex: 1, backgroundColor: "gray"}}>
       <HeadersComponent/>
     </SafeAreaView>
   )

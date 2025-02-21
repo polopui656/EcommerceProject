@@ -1,11 +1,10 @@
-/*import express, {Request, Response} from "express";
+import express, {Request, Response} from "express";
 import multer from "multer";
 import path from "path";
-import { createProduct } from "../Controller";
-import { Image } from 'react-native';
+import { createProduct, getAllProducts, getProductByCatID } from "../Controllers";
 
 const router = express.Router();
-const imageStorage = multer.diskStorage({
+const imagesStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null,'assets')
     },
@@ -14,8 +13,10 @@ const imageStorage = multer.diskStorage({
     }
 })
 
-const images = multer({storage: imageStorage}).array('images');
+const images = multer({storage: imagesStorage}).array('images');
 
 router.post('/createProduct', images, createProduct);
+router.get('/getProductByCatID/:CatID', getProductByCatID);
+router.get('/getAllProducts',getAllProducts)
 
-export {router as ProductRoute};*/
+export {router as ProductRoute};

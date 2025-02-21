@@ -1,6 +1,6 @@
 import mongoose, {Schema} from "mongoose";
-import { ProductParam } from "../dto/Product";
 import { CategoryObj } from "../dto/Categories";
+import { ProductParams } from '../dto/Product';
 
 const CategorySchema = new Schema(
     {

@@ -1,7 +1,7 @@
 import express, {Request, Response} from 'express';
 import multer from 'multer';
 import path from 'path';
-import { createCategory } from '../Controllers';
+import { createCategory, deleteCategory, getAllCategories, getCategory, updateCategory } from '../Controllers';
 
 const router = express.Router();
 const imagesStorage = multer.diskStorage({
@@ -16,5 +16,10 @@ const imagesStorage = multer.diskStorage({
 const images = multer({ storage: imagesStorage}).array('images');
 
 router.post('/createCategory', images, createCategory);
+router.get('/getCategory/:id', getCategory);
+router.get('/getAllCategories', getAllCategories)
+
+router.put('/updateCategory', images, updateCategory)
+router.delete('/deleteCategory/:id', deleteCategory)
 
 export {router as CategoryRoute};
