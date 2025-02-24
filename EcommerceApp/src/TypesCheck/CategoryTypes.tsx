@@ -14,6 +14,6 @@ export interface ICatProps {
     width?: number;
     height?: number;
     radius?: number;
-    resizeMode?: "contain" | "cover" | "stretch" ;
+    resizeMode?: "contain" | "cover" | "stretch";
   };
 }

@@ -1,3 +1,4 @@
+
 import { ProductParams } from "../dto/Product";
 import mongoose ,{ Schema } from "mongoose";
 
@@ -5,9 +6,9 @@ const ProductSchema = new Schema ({
     name: {
         type: String, required: true, 
     },
-    images: {
+    images: [{
         type: String, required: true, 
-    },
+    }],
     price: {
         type: Number,
     },
@@ -34,10 +35,7 @@ const ProductSchema = new Schema ({
         type: mongoose.Schema.Types.ObjectId,
         ref: "category"
     },
-    createAt: {
-        type: Date,
-        default: Date.now, required: true
-    }
+    
 })
 
 export const PRODUCTS = mongoose.model('Product', ProductSchema)

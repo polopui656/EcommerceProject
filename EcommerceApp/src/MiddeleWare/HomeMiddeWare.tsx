@@ -7,16 +7,49 @@ interface ICatProps {
     setGetCategory: React.Dispatch<React.SetStateAction<ProductListParams[]>>
 }
 
+interface IProdByCatProps {
+    catID: string;
+    setGetProductsByCatID: React.Dispatch<React.SetStateAction<ProductListParams[]>>
+}
+
+interface ITrendingProductProps {
+    setTrendingProducts: React.Dispatch<React.SetStateAction<ProductListParams[]>>
+}
+
+export const fetchTrendingProducts = async ({setTrendingProducts} : ITrendingProductProps) => {
+    try {
+        const response: FetchProductsParam = await axios.get("http://10.106.21.4:9000/product/getTrendingProducts");
+        console.log("API Response: ", response.data);
+
+        if(Array.isArray(response.data)){
+            const fixedData = response.data.map(item => ({
+                ...item,
+                images: item.images.map((img: string) => 
+                    img.replace("http://localhost", "http://10.106.21.4")
+                ) 
+            }));
+
+            setTrendingProducts(fixedData);
+        } else {
+            console.warn("fetchCategories: Du lieu API khong phai la mang", response.data);
+            setTrendingProducts([]);
+        }
+    } catch (error) {
+        console.log("axios get error", error);
+        setTrendingProducts([]);
+    }
+}
+
 export const fetchCategories = async ({ setGetCategory}: ICatProps) => {
     try {
-        const response = await axios.get("http://10.106.23.52:9000/category/getAllCategories");
+        const response = await axios.get("http://10.106.21.4:9000/category/getAllCategories");
         console.log("API Response:", response.data);
 
         if (Array.isArray(response.data)) {
             const fixedData = response.data.map((item) => ({
               ...item,
               images: item.images.map((img: string) =>
-                img.replace("http://localhost", "http://10.106.23.52")
+                img.replace("http://localhost", "http://10.106.21.4")
               ),
             }));
             setGetCategory(fixedData);
@@ -30,4 +63,26 @@ export const fetchCategories = async ({ setGetCategory}: ICatProps) => {
     }
 };
 
+export const fetchProductsByCatID = async ({ setGetProductsByCatID, catID}: IProdByCatProps) => {
+    try {
+        const response: FetchProductsParam = await axios.get(`http://10.106.21.4:9000/product/getProductByCatID/${catID}`);
+        console.log("API Response: ", response.data);
 
+        if(Array.isArray(response.data)){
+            const fixedData = response.data.map(item => ({
+                ...item,
+                images: item.images.map((img: string) => 
+                    img.replace("http://localhost", "http://10.106.21.4")
+                )
+            }));
+
+            setGetProductsByCatID(fixedData);
+        } else {
+            console.warn("fetchProductsByCatID: Du lieu API khong phai la mang", response.data);
+            setGetProductsByCatID([]);
+        }
+    } catch (error) {
+        console.log("axios get error", error);
+        setGetProductsByCatID([]);
+    }
+}

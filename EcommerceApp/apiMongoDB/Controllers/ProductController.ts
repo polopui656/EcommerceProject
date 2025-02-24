@@ -4,15 +4,15 @@ import { PRODUCTS } from '../Models/ProductModel';
 
 const path = 'http://localhost:9000/assets/'
 export const createProduct = async (req: Request, res: Response) => {
-    const {name, price, oldPrice, description, quantity, inStock, isFeatured, category, createAt} = <ProductParams>req.body;
+    const {name, price, oldPrice, description, quantity, inStock, isFeatured, category} = <ProductParams>req.body;
+
     const files = req.files as [Express.Multer.File];
     const images = files.map ((file: Express.Multer.File) => path + file.filename)
 
     const product = new PRODUCTS({
         name: name,
         images: images,
-        price, oldPrice, description, quantity, inStock, isFeatured, category,
-        createAt: new Date()
+        price, oldPrice, description, quantity, inStock, isFeatured, category
     });
 
     try{
@@ -34,11 +34,29 @@ export const getProductByCatID = async ( req: Request, res: Response) => {
     }
 }
 
-export const getAllProducts = async (req: Request, res: Response) => {
+export const getProductByID = async (req: Request, res: Response) => {
     try {
-        const result = (await PRODUCTS.find()).sort({ createAt: -1})
+        const result = await PRODUCTS.findById(req.params.id)
         res.status(200).json(result)
     } catch (error) {
-        res.status(500).json(`ProductByID fetch failed ${error} :-(`)
+        res.status(500).json(`Product fetch failed ${error} :-(`)
+    }
+}
+
+export const getAllProducts = async (req: Request, res: Response) => {
+    try {
+        const result = await PRODUCTS.find().sort({price:-1});
+        res.status(200).json(result)
+    } catch (error) {
+        res.status(500).json(`Products not found ${error} :-(`)
+    }
+} 
+
+export const getTrendingProducts = async (req: Request, res: Response) => {
+    try {
+        const result = await PRODUCTS.find({isFeatured: true}).sort({quantity: -1}).limit(4)
+        res.status(200).json(result)
+    } catch(error) {
+        res.status(500).json(`Trending products fetch failed ${error} :-(`)
     }
 }

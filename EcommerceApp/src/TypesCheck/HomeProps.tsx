@@ -1,4 +1,3 @@
-
 export interface ProductListParams {
   _id: string;
   images: [string];
@@ -6,10 +5,12 @@ export interface ProductListParams {
   price: number;
   oldPrice?: number;
   inStock?: boolean;
+  isFeatured: boolean;
   color?: string;
   size?: string;
   description?: string;
   quantity: number; 
+  category: string;
 }
 
 export interface FetchProductsParam {

@@ -9,5 +9,4 @@ export interface ProductParams {
     inStock: boolean;
     isFeatured: boolean;
     category: string; 
-    createAt: Date;
 }

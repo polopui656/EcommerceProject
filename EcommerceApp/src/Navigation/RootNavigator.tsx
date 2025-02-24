@@ -6,11 +6,28 @@ import {
 import OnboardingScreen from "../Screens/OnboardingScreen";
 import { NavigatorScreenParams } from "@react-navigation/native";
 import TabsNavigator ,{ TabsStackParams } from "./TabsNavigator";
+import ProductDetails from './../Screens/ProductDetails';
+
 
 
 export type RootStackParams = {
   OnboardingScreen: undefined;
   TabsStack: NavigatorScreenParams<TabsStackParams>;
+  Deals: undefined;
+  Cart: undefined;
+  Profile: undefined;
+  productDetails: {
+      _id: string;
+      images: [string];
+      name: string;
+      price: number;
+      oldPrice?: number;
+      inStock?: number;
+      color?: string;
+      size?: string;
+      description?: string;
+      quantity: number;
+  }
 };
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
@@ -28,6 +45,11 @@ const RootNavigator = () => {
         name="TabsStack"
         component={TabsNavigator}
         options={{ headerShown: false }}
+      />
+      <RootStack.Screen
+        name="productDetails"
+        component={ProductDetails}
+        options={{ headerShown: false}}
       />
     </RootStack.Navigator>
   );
