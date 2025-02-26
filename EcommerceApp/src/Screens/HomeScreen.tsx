@@ -9,26 +9,46 @@ import { CategoryCard } from '../Components/HomeScreenComponents/CategoryCard';
 import { fetchCategories, fetchProductsByCatID, fetchTrendingProducts } from '../MiddeleWare/HomeMiddeWare';
 import { useFocusEffect } from '@react-navigation/native';
 import { ProductCard } from '../Components/HomeScreenComponents/ProductCard';
-
-
-
-type Props = {}
+import { useSelector } from 'react-redux';
+import { CartState } from '../TypesCheck/productCartTypes';
 
 const HomeScreen = ({navigation, route}: TabsStackScreenProps<"Home">) => {
     const [getProductsByCatID, setGetProductsByCatID] = useState<ProductListParams[]>([]);
-
+    const cart = useSelector((state: CartState) => state.cart.cart);
     const gotoCartScreen = () => {
-        navigation.navigate("Cart")
+        if(cart.length === 0){
+            setMessage("Cart is empty. Please add products to cart.");
+            setDisplayMessage(true);
+            setTimeout(() => {
+                setDisplayMessage(false);
+            }, 3000)
+        } else {
+            navigation.navigate("TabsStack", {screen: "Cart"});
+        }
+    }
+
+    const goToPreviousScreen = () => {
+        if(navigation.canGoBack()) {
+            console.log("Chuyen ve trang truoc.");
+            navigation.goBack();
+        } else {
+            console.log("Khong the quay lai, chuyen ve trang Onboarding.");
+            navigation.navigate("OnboardingScreen");
+        }
     }
 
     const sliderImages = [
-        "https://t4.ftcdn.net/jpg/07/08/47/75/360_F_708477508_DNkzRIsNFgibgCJ6KoTgJjjRZNJD4mb4.jpg",
-        "https://m.media-amazon.com/images/I/71qTm-Xrh0L.jpg",
-    ]
+      "https://t4.ftcdn.net/jpg/07/08/47/75/360_F_708477508_DNkzRIsNFgibgCJ6KoTgJjjRZNJD4mb4.jpg",
+      "https://m.media-amazon.com/images/I/71qTm-Xrh0L.jpg",
+      "https://bizweb.dktcdn.net/100/218/328/products/929f6783-add9-467c-b5ae-671c16f9eb29-jpeg.jpg?v=1681981238357",
+      "https://naidecor.vn/wp-content/uploads/2020/01/ct00192-549k.jpg",
+    ];
 
     const [getCategory, setGetCategory] = useState<ProductListParams[]>([])
     const [activeCat, setActiveCat] = useState<string>("")
     const [trendingProducts, setTrendingProducts] = useState<ProductListParams[]>([])
+    const [message, setMessage] = React.useState("");
+    const [displayMessage, setDisplayMessage] = React.useState<boolean>(false);
 
     useEffect(() => {
         fetchCategories({setGetCategory});
@@ -54,7 +74,7 @@ const HomeScreen = ({navigation, route}: TabsStackScreenProps<"Home">) => {
 
     return (
         <SafeAreaView style={{ paddingTop: Platform.OS === "android" ? 40:0, flex: 1, backgroundColor: "black"}}>
-            <HeadersComponent gotoCartScreen={gotoCartScreen}/>
+            <HeadersComponent gotoCartScreen={gotoCartScreen} cartLength={cart.length} gotoPrevious={goToPreviousScreen}/>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}
                 style= {{backgroundColor:"#efg"}}>
                     <ImageSlider images={sliderImages}/>
@@ -155,7 +175,7 @@ const HomeScreen = ({navigation, route}: TabsStackScreenProps<"Home">) => {
                                 category: item?.category?.toString() || "Uncategorized"
                             }}
                             key={index}
-                            pStyleProps={{"resizeMode": "contain", "width": productWidth, height: 90, "marginBottom": 5}}   
+                            pStyleProps={{"resizeMode": "contain", "width": 100, height: 90, "marginBottom": 5}}   
                             productProps={{}} 
                         ></ProductCard>
                     ))
