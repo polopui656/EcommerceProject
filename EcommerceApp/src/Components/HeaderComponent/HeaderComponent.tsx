@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import axios from 'axios'
 import { GoBack } from './GoBackButton';
 
 interface IHeaderParams {
+    pageTitle?: string; 
     gotoPrevious?: () => void;
     search?: () => void;
     cartLength?: number;
@@ -12,10 +14,31 @@ interface IHeaderParams {
 
 export const HeadersComponent = ({ gotoPrevious, search, cartLength, gotoCartScreen } : IHeaderParams) => {
     const [searchInput, setSearchInput] = useState("")
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    // Function to search products
+    const handleSearch = async () => {
+      if (searchInput.trim() === "") return; // Don't search if input is empty
+
+      setLoading(true);
+      try {
+        const response = await axios.get("http://192.168.1.5:9000/product/getAllProduct", {
+          params: {
+            search: searchInput,
+          },
+        });
+        setFilteredProducts(response.data); // Set filtered products
+      } catch (error) {
+        console.error("Error fetching products", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     return (
       <View
         style={{
-          backgroundColor: "#000",
+          backgroundColor: "blue",
           padding: 10,
           flexDirection: "row",
           alignItems: "center",

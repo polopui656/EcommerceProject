@@ -38,10 +38,10 @@ const HomeScreen = ({navigation, route}: TabsStackScreenProps<"Home">) => {
     }
 
     const sliderImages = [
-      "https://t4.ftcdn.net/jpg/07/08/47/75/360_F_708477508_DNkzRIsNFgibgCJ6KoTgJjjRZNJD4mb4.jpg",
-      "https://m.media-amazon.com/images/I/71qTm-Xrh0L.jpg",
-      "https://bizweb.dktcdn.net/100/218/328/products/929f6783-add9-467c-b5ae-671c16f9eb29-jpeg.jpg?v=1681981238357",
-      "https://naidecor.vn/wp-content/uploads/2020/01/ct00192-549k.jpg",
+      "https://i.pinimg.com/736x/66/19/fc/6619fcd3cbd6b6a8e7a965789c28e54c.jpg",
+      "https://i.pinimg.com/474x/92/6f/b0/926fb0479307cf3641500a3492c8a311.jpg",
+      "https://i.pinimg.com/474x/8f/0f/27/8f0f27f4861b11049526e6b372ee7099.jpg",
+      "https://i.pinimg.com/474x/0e/f1/2f/0ef12fb72057dc5c62ed3f85727ea5fd.jpg",
     ];
 
     const [getCategory, setGetCategory] = useState<ProductListParams[]>([])
@@ -73,19 +73,19 @@ const HomeScreen = ({navigation, route}: TabsStackScreenProps<"Home">) => {
 
 
     return (
-        <SafeAreaView style={{ paddingTop: Platform.OS === "android" ? 40:0, flex: 1, backgroundColor: "black"}}>
+        <SafeAreaView style={{ paddingTop: Platform.OS === "android" ? 40:0, flex: 1, backgroundColor: "white"}}>
             <HeadersComponent gotoCartScreen={gotoCartScreen} cartLength={cart.length} gotoPrevious={goToPreviousScreen}/>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}
                 style= {{backgroundColor:"#efg"}}>
                     <ImageSlider images={sliderImages}/>
             </ScrollView>
-            <View style={{ backgroundColor: "yellow", flex: 1}}>
-                <Text>
+            <View style={{ backgroundColor: "blue", flex: 0}}>
+                <Text style={{color: "white", fontWeight: "bold", padding: 10}}>
                     Category
                 </Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}
                     contentContainerStyle = {{paddingHorizontal: 15}}
-                    style= {{margin: 4}}
+                    style= {{margin: 0, backgroundColor: "white"}}
                 >
                     {
                         getCategory.map((item, index) => (
@@ -108,21 +108,21 @@ const HomeScreen = ({navigation, route}: TabsStackScreenProps<"Home">) => {
             </View>
 
             <View style= {{
-                backgroundColor: "pink", flexDirection: "row", justifyContent: "space-between",
-                marginTop: 10
+                backgroundColor: "blue", flexDirection: "row", justifyContent: "space-between",
+                marginTop: 2
             }}>
-                <Text style={{ fontSize: 14, fontWeight: "bold", padding: 10}}>
+                <Text style={{ fontSize: 14, fontWeight: "bold", padding: 10, color: "white"}}>
                     Products from Selected Category
                 </Text>
                 <Pressable>
-                    <Text style= {{fontSize: 11, fontWeight: "bold", padding: 10}}>
+                    <Text style= {{fontSize: 11, fontWeight: "bold", padding: 10, color: "white"}}>
                         See all
                     </Text>
                 </Pressable>
             </View>
 
             <View style= {{
-                backgroundColor: "#fff", borderWidth: 7, borderColor: "green", flexDirection: "row",
+                backgroundColor: "#fff", borderWidth: 2, borderColor: "green", flexDirection: "row",
                 justifyContent: "space-between", alignItems: "center", flexWrap: "wrap"
             }}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -149,14 +149,14 @@ const HomeScreen = ({navigation, route}: TabsStackScreenProps<"Home">) => {
                 </ScrollView>
             </View>
             <View style={{
-                backgroundColor: "purple", flexDirection: "row", justifyContent: "space-between", marginTop: 10
+                backgroundColor: "blue", flexDirection: "row", justifyContent: "space-between", marginTop:1
             }}>
-                <Text style={{ color: "yellow", fontSize: 14, fontWeight: "bold", padding: 10}}>
+                <Text style={{ color: "white", fontSize: 14, fontWeight: "bold", padding: 10}}>
                     Trending Deals of The Week
                 </Text>
             </View>
             <View style={{
-                backgroundColor:"#fff", borderWidth: 7, borderColor: "green", flexDirection: "row",
+                backgroundColor:"#fff", borderWidth: 2, borderColor: "blue", flexDirection: "row",
                 justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" 
             }}>
                 {
@@ -176,7 +176,11 @@ const HomeScreen = ({navigation, route}: TabsStackScreenProps<"Home">) => {
                             }}
                             key={index}
                             pStyleProps={{"resizeMode": "contain", "width": 100, height: 90, "marginBottom": 5}}   
-                            productProps={{}} 
+                            productProps={{
+                                "onPress": () => {
+                                    navigation.navigate("productDetails", item)
+                                }
+                            }} 
                         ></ProductCard>
                     ))
                 }

@@ -7,6 +7,7 @@ import OnboardingScreen from "../Screens/OnboardingScreen";
 import { NavigatorScreenParams } from "@react-navigation/native";
 import TabsNavigator from "./TabsNavigator";
 import ProductDetails from './../Screens/ProductDetails';
+import UserAuth from "../Screens/LoginRegisterScreen";
 
 export type TabsStackParams = {
   Home: undefined
@@ -30,27 +31,41 @@ export type RootStackParams = {
   //Cart: undefined;
   Profile: undefined;
   productDetails: {
-      _id: string;
-      images: [string];
-      name: string;
-      price: number;
-      oldPrice?: number;
-      inStock?: number;
-      color?: string;
-      size?: string;
-      description?: string;
-      quantity: number;
-  }
-  Cart?: {
     _id: string;
-    images: string;
+    images: [string];
     name: string;
     price: number;
+    oldPrice?: number;
+    inStock?: boolean;
     color?: string;
     size?: string;
-    quantity: number
-  }
+    description?: string;
+    quantity: number;
+  };
+  Cart?: {
+    _id: string;
+    images: [string];
+    name: string;
+    price: number;
+    oldPrice?: number;
+    inStock?: boolean;
+    color?: string;
+    size?: string;
+    description?: string;
+    quantity: number;
+  };
+  UserLogin: {
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+    firstName?: string;
+    lastName?: string;
+    mobileNo?: string;
+    screenTitle?: string;
+  };
 };
+
+
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
 export type RootStackScreenProps<T extends keyof RootStackParams> =
@@ -71,6 +86,11 @@ const RootNavigator = () => {
       <RootStack.Screen
         name="productDetails"
         component={ProductDetails}
+        options={{ headerShown: false}}
+      />
+      <RootStack.Screen
+        name="UserLogin"
+        component={UserAuth}
         options={{ headerShown: false}}
       />
     </RootStack.Navigator>

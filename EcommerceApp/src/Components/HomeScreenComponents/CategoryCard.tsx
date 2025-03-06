@@ -10,7 +10,7 @@ export const CategoryCard = ({ item, catProps, catStyleProps}: ICatProps) => {
         <View>
             {catProps.imageBg !== undefined ? (
                 <View style={{ alignItems: "center"}}>
-                    <Pressable style={st.imageContainer} key={item._id} onPress={catProps.onPress}>
+                    <Pressable style={st.imageContainer} key={item._id} onPress={catProps.onPress}>``
                         <ImageBackground source={{uri: catProps?.imageBg}} style={styl(catStyleProps.imageBgHt).imageBg}>
                             <Image source={{uri: item?.images[0]}}
                                 style={sty(catStyleProps.width, catStyleProps.height, catStyleProps.radius).imgStyleProps}

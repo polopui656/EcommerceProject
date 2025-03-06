@@ -35,7 +35,6 @@ const ProductSchema = new Schema ({
         type: mongoose.Schema.Types.ObjectId,
         ref: "category"
     },
-    
 })
 
 export const PRODUCTS = mongoose.model('Product', ProductSchema)
